@@ -9,4 +9,4 @@ RUN mkdir -p /var/lib/app /var/www/app \
     && php -r 'exit(extension_loaded("pdo_sqlite") ? 0 : 1);'
 
 COPY app/ /var/www/app/
-COPY src/ /var/www/html/
+COPY public/ /var/www/html/

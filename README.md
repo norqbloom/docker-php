@@ -24,7 +24,7 @@ docker compose up -d
 ```
 
 http://localhost:8080 にアクセスすると PHP のバージョンと `SAPI: fpm-fcgi` が表示されます。
-`src/` 内のファイルを編集すると、再ビルドせずに反映されます。
+`public/` と `app/` 内のファイルを編集すると、再ビルドせずに反映されます。
 
 `php:8.5-fpm` は PHP 8.5系の安定版を追従する公式タグです。
 最新版へ更新するときも、上記のビルド・起動コマンドを実行してください。
@@ -63,11 +63,32 @@ docker compose down
 
 ## ファイル構成
 
-- `Dockerfile`: PHP 8.5 / PHP-FPM。開発用の php.ini を使用。
-- `docker/apache/Dockerfile`: Apache 2.4 と FastCGI モジュールの有効化。
-- `docker/apache/php-fpm.conf`: 公開ディレクトリと PHP-FPM への転送設定。
-- `compose.yaml`: 2コンテナの接続とローカルの 8080 ポート公開。
-- `src/index.php`: 動作確認用ページ。
+```text
+docker-php/
+├── compose.yaml
+├── docker/
+│   ├── apache/
+│   │   ├── Dockerfile           # Apache 2.4
+│   │   └── php-fpm.conf         # 公開ディレクトリとFastCGI転送設定
+│   └── php/
+│       └── Dockerfile           # PHP 8.5 / PHP-FPM、開発用php.ini
+├── public/
+│   └── index.php                # 公開する動作確認ページ
+├── app/
+│   └── database.php             # 公開領域外のSQLite接続設定
+├── .dockerignore
+├── .gitignore
+└── README.md
+```
+
+ページ・CSS・JavaScript・画像は `public/` に、DB操作や共通テンプレートなどの内部処理は `app/` に追加します。
+`public/` はコンテナ内の `/var/www/html`、`app/` は PHP コンテナ内の `/var/www/app` に対応します。
+
+旧構成から更新した場合は、プロジェクトのルートで再ビルド・再作成してください。
+
+```bash
+docker compose up -d --build
+```
 
 PHP-FPM の 9000 ポートはホストへ公開せず、コンテナ間で接続します。
 この設定はローカル開発用です。

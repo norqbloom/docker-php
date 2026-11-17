@@ -1,10 +1,11 @@
 **
-!Dockerfile
-!src/
-!src/**
+!public/
+!public/**
 !docker/
 !docker/apache/
 !docker/apache/Dockerfile
 !docker/apache/php-fpm.conf
+!docker/php/
+!docker/php/Dockerfile
 !app/
 !app/**

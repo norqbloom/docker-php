@@ -7,4 +7,4 @@ RUN sed -i \
     && printf '\nInclude conf/extra/php-fpm.conf\n' >> /usr/local/apache2/conf/httpd.conf
 
 COPY docker/apache/php-fpm.conf /usr/local/apache2/conf/extra/php-fpm.conf
-COPY src/ /var/www/html/
+COPY public/ /var/www/html/
