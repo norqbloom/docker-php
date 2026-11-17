@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+.aws/
+.codex/
+.agents/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite-journal

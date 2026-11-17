@@ -1,0 +1,23 @@
+services:
+  apache:
+    build:
+      context: .
+      dockerfile: docker/apache/Dockerfile
+    ports:
+      - "127.0.0.1:8080:80"
+    volumes:
+      - ./src:/var/www/html:ro
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/www/html:ro
+      - ./app:/var/www/app:ro
+      - sqlite-data:/var/lib/app
+
+volumes:
+  sqlite-data:

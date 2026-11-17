@@ -1,0 +1,10 @@
+**
+!Dockerfile
+!src/
+!src/**
+!docker/
+!docker/apache/
+!docker/apache/Dockerfile
+!docker/apache/php-fpm.conf
+!app/
+!app/**
